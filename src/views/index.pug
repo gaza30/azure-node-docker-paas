@@ -2,9 +2,9 @@ extends layout
 
 block content
   h1 
-    img(src='https://github.com/benc-uk/azure-node-docker-paas/blob/master/src/public/images/icon.png?raw=true' height='64px' align='absmiddle')
-    span &nbsp;Linux PaaS &ndash; Demo Web App
-  h2 System Info...
+    img(src='images/icon.svg' height='64px' align='absmiddle')
+    span &nbsp;Node.js &ndash; Demo Web App
+  h2 &#x1F4BB; System Info...
   table 
     tr 
       td OS: 
@@ -19,11 +19,15 @@ block content
       td Memory: 
       td #{Math.round(info.mem/(1024*1024))} Mb
     tr
-      td Environment: 
-      td #{info.env}     
+      td Website Name: 
+      td #{info.env}
+    tr
+      td Node Version: 
+      td #{info.nodever}         
   if isDocker
-    h3 Status: Running in a Docker container! &#x1F604; 
+    h3 &#x1F4E6; Status: Running in a Docker container! &#x1F604; 
   else
-    h3 Status: <b>Not</b> running as a Docker container &#x1F622;
+    h3 &#x1F4E6; Status: Not running as a Docker container &#x1F622;
+  h2 Microsoft &hearts; Open source
   hr
-  h2 Azure &hearts; Open source
+  .foot Ben Coleman, 2017 v#{ver}

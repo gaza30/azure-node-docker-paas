@@ -23,3 +23,9 @@ table {
   font-weight: bolder;
   border-radius: 6px;
 }
+
+.foot {
+  font-size: 80%;
+  float: right;
+  top: -30px
+}
