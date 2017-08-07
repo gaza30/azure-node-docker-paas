@@ -103,7 +103,7 @@ Now we'll add Docker support to the app to containerize it. The Docker extension
 
 This will add three files to your project, the two compose YAML files we can ignore. The **Dockerfile** is what we're interested in. We don't need to make any changes but if you're unfamiliar with Docker, it's worth opening and looking at, if you've created Docker images before, then move on.  
 Here is some high level explanation of what the **Dockerfile** is doing:  
-- Since, a Docker image is nothing but a series of layers built on top of each other, you always start from a base image. The `FROM` command sets this base image, here we're using an image pre-built with Node.js. This is an official image published by the Node foundation and [hosted on Dockerhub](https://hub.docker.com/_/node/).  
+- Since, a Docker image is nothing but a series of layers built on top of each other, you always start from a base image. The `FROM` command sets this base image, here we're using an image pre-built with Node.js. This is an official image published by the Node foundation and [hosted on Dockerhub](https://hub.docker.com/_/node/). The default image is the Alpine Linux variant, which means it is very small and lightweight  
 - The series of `COPY` and `RUN` commands go about running the `npm install` just as we did earlier and also copying in your app source into the image.  
 - The `EXPOSE` command is a hint which ports your application and will be listening on, and need to be mapped out to the container when it runs.  
 - The last `CMD` part is what starts the app up, just as we did with `npm start`.  
@@ -161,6 +161,7 @@ Back in VSTS and in your new project, click into *Build & Release --> Build* fro
 * Click **'+ New Definition'**
 * Choose **'Container (PREVIEW)'** as the starting template (near the bottom)
 * Give a sensible name to the definition, e.g. *"Build MyApp Docker Image"*
+* Click on **'Process'** above the list of tasks, and change the **'Default agent queue'** to **'Hosted Linux Preview'**
 * Click the **'Build an image'** task in the list, change the following:
   * Pick your Azure subscription from the drop down, then click **'Authorize'**, this will take about 30 seconds
   * Now click the **'Azure Container Registry'** dropdown and select your registry you just built
@@ -171,14 +172,14 @@ Back in VSTS and in your new project, click into *Build & Release --> Build* fro
   * Now click the **'Azure Container Registry'** dropdown and select your registry you just built
   * Tick these options: **'Qualify Image Name'** & **'Include Latest Tag'**
   * Change the **'Image Name'** to `myapp:$(Build.BuildId)`
-* Click **'Add Task'**, search for *"copy"* and add the task called **'Copy and Publish Build Artifacts'**
+* Click **'Add Task'**, search for *"pub"* and add the task called **'Publish Build Artifacts'**
 * Click the new task:
   * Change the **'Contents'** to two asterisks `**`
   * Change **'Artifact Name'** to anything you like e.g. `stuff`
   * For the **'Artifact Type'** pick **'Server'**
-* Two final steps:
-  * Click on **'Triggers'** at the top of the defintion and enable **'Continuous Integration'**
-  * Next to that click on **'Options'** and change the **'Default agent queue'** to **'Hosted Linux Preview'**
+* Final step:
+  * Click on **'Triggers'** at the top of the definition and enable **'Continuous Integration'**
+
 <details>
   <summary>View screenshots of this step (Click to expand/collapse)</summary>
 
@@ -190,35 +191,44 @@ Back in VSTS and in your new project, click into *Build & Release --> Build* fro
   ![build-4](imgs/build-5.png)  
 </details>  
 
-Phew! That's a lot of manual steps, sorry!
+Phew! That's a lot of manual steps, sorry!  
+A working build definition is [provided here as a JSON file](vsts-definitions/build-myapp-docker-image.json), which you can import in. This will save you a little work, However you will still need to modify the tasks to use your Azure subscription and your new Azure Container Registry
+
 Click on **'Save & queue'** then queue a new manual build in order to validate everything. You can sit an watch it run which should take less than 3 mins, or jump to the next step and come back here to check and fix any problems
 
 
 ## 6. VSTS release process
-Our release process is slightly unorthodox, as for simplicity we've pre-deployed our resources in the step above. The way Azure Linux Web Apps work is they deploy a Docker container for you to spin up your app. As a PaaS service this is done seamlessly for you behind the scenes. To get the Web App to redeploy the container with your new build (or updated build) we need to restart the Web App. So our release process is simply restarting the Web App in Azure
+Our release process is slightly unorthodox. For the sake of simplicity with this exercise, we've pre-deployed our resources in the step above. The way Azure Linux Web Apps work is they deploy a Docker container for you to spin up your app. As a PaaS service this is done seamlessly for you behind the scenes. To get the Web App to redeploy the container with your new build (or updated build) we just need to restart the Web App. So our release process is simply restarting the Web App in Azure.
+
+Note. These steps are taken with the new style VSTS release editor, which you may be prompted to turn on (click 'Try It' if so), otherwise it is enabled in the "Preview features" section of your profile.
 
 On main menu click into *Build & Release --> Releases*:
 * Click **'+ New Definition'**
-* Pick **'Start with an empty definition'**
-* Click the pencil at the top and rename the defintion something sensible e.g. *"Release to Azure"*
-* Pick your project & new build defintion as the source, and also enable **'Continuous deployment'** checkbox
-* Click **'Add tasks'** and add the **'Azure App Service Manage (PREVIEW)'** task, click **'Close'**
-* Change the following options:
+* Pick **'Start with an empty definition'** or the **'Empty process'** as your starting template
+* Name your environment something sensible like *"Dev"* or *"Test"*
+* Click the pencil at the top and rename the definition something sensible e.g. *"Release to Azure"*
+* Click in the **'Add artifact'** circle
+  * Pick your project & new build definition as the source, and click **'Add'**
+* Click **'Tasks'** on the menu
+  * Under the "Agent phase" click the plus, find the **'Azure App Service Manage (PREVIEW)'** task, click **'Add'**
+* Change the following options on the task:
   * Azure subscription: pick from the drop down
   * Action: **"Restart App Service"**
-  * App Service name: select your site name you deployed earlier
-* Name your environment something sensible like *"Dev"* or *"Test"*
-* Click **'Save'** button
+  * App Service name: select your site name you deployed earlier from the dropdown
+* Click **'Save'** button at the top
 * Click **'+ Release'** then **'Create Release'**
-* Take the defaults and click **'Create'**
+* Take the defaults and click **'Queue'**
 * Where it says **_"Release Release-1 has been created."_** click into _Release-1_ and click on **'Logs'**
 * Validate that the site has been restarted
 
 <details>
-  <summary>View screenshot of the release defintion (Click to expand/collapse)</summary>
+  <summary>View screenshots of the release definition (Click to expand/collapse)</summary>
 
-  ![build-1](imgs/rel.png)
+  ![rel-1](imgs/vsts-rel1.png)
+  ![rel-2](imgs/vsts-rel2.png)
 </details> 
+
+A working release definition is [provided here as a JSON file](vsts-definitions/release-to-azure.json), which you can import in. This will save you a little work, However you will still need to modify the tasks to use your Azure subscription and your correct Web App site name
 
 
 ## 7. View deployed site & trigger pipeline

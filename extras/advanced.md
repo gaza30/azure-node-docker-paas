@@ -13,7 +13,7 @@ az acr create --admin-enabled --sku Basic --verbose -l westus -n demoregfoo123 -
 
 ### VSTS release defintion - Infrastructure as Code 
 
-Rather than use static pre-deployed resources, we'll deploy the Azure resources at the release stage across multiple environments. Using the following [ARM template](https://github.com/benc-uk/azure-arm/tree/master/paas-web/webapp-linux-custom) which is hosted in a separate Github repo.
+Rather than use static pre-deployed resources, we'll deploy the Azure resources at the release stage across multiple environments. Using the following [ARM template](https://github.com/benc-uk/azure-arm/tree/master/paas-web/linux-acr-existing) which is hosted in a separate Github repo.
 The release definition is likely too laborious to create manually, esp. in a demo scenario so import the definition from the JSON file found in the [extras folder](extras/)  
 
 Once imported:

@@ -1,0 +1,191 @@
+{
+   "source": 2,
+   "id": 1,
+   "revision": 1,
+   "name": "Release to Azure",
+   "description": null,
+   "createdBy": {
+      "id": "81613f75-f6e3-49cb-abdf-ff2ba28a0d03",
+      "displayName": "Ben Coleman",
+      "uniqueName": "becolem@microsoft.com",
+      "url": "https://app.vssps.visualstudio.com/Ac13c7b99-2463-4cd0-84a0-5260108a913e/_apis/Identities/81613f75-f6e3-49cb-abdf-ff2ba28a0d03",
+      "imageUrl": "https://benc-uk.visualstudio.com/_api/_common/identityImage?id=81613f75-f6e3-49cb-abdf-ff2ba28a0d03"
+   },
+   "createdOn": "2017-08-07T12:52:11.143Z",
+   "modifiedBy": {
+      "id": "81613f75-f6e3-49cb-abdf-ff2ba28a0d03",
+      "displayName": "Ben Coleman",
+      "uniqueName": "becolem@microsoft.com",
+      "url": "https://app.vssps.visualstudio.com/Ac13c7b99-2463-4cd0-84a0-5260108a913e/_apis/Identities/81613f75-f6e3-49cb-abdf-ff2ba28a0d03",
+      "imageUrl": "https://benc-uk.visualstudio.com/_api/_common/identityImage?id=81613f75-f6e3-49cb-abdf-ff2ba28a0d03"
+   },
+   "modifiedOn": "2017-08-07T12:52:11.143Z",
+   "path": "\\",
+   "variables": {},
+   "variableGroups": [],
+   "environments": [
+      {
+         "id": 1,
+         "name": "DevTest",
+         "rank": 1,
+         "owner": {
+            "id": "81613f75-f6e3-49cb-abdf-ff2ba28a0d03",
+            "displayName": "Ben Coleman",
+            "uniqueName": "becolem@microsoft.com",
+            "url": "https://app.vssps.visualstudio.com/Ac13c7b99-2463-4cd0-84a0-5260108a913e/_apis/Identities/81613f75-f6e3-49cb-abdf-ff2ba28a0d03",
+            "imageUrl": "https://benc-uk.visualstudio.com/_api/_common/identityImage?id=81613f75-f6e3-49cb-abdf-ff2ba28a0d03"
+         },
+         "variables": {},
+         "preDeployApprovals": {
+            "approvals": [
+               {
+                  "rank": 1,
+                  "isAutomated": true,
+                  "isNotificationOn": false,
+                  "id": 1
+               }
+            ]
+         },
+         "deployStep": {
+            "tasks": [],
+            "id": 2
+         },
+         "postDeployApprovals": {
+            "approvals": [
+               {
+                  "rank": 1,
+                  "isAutomated": true,
+                  "isNotificationOn": false,
+                  "id": 3
+               }
+            ]
+         },
+         "deployPhases": [
+            {
+               "deploymentInput": {
+                  "parallelExecution": {
+                     "parallelExecutionType": "none"
+                  },
+                  "skipArtifactsDownload": false,
+                  "queueId": 133,
+                  "demands": [],
+                  "enableAccessToken": false,
+                  "timeoutInMinutes": 0,
+                  "jobCancelTimeoutInMinutes": 1
+               },
+               "rank": 1,
+               "phaseType": 1,
+               "name": "Agent phase",
+               "workflowTasks": [
+                  {
+                     "taskId": "f045e430-8704-11e6-968f-e717e6411619",
+                     "version": "0.*",
+                     "name": "Restart Azure App Service: demowebapp",
+                     "refName": "AzureAppServiceManage1",
+                     "enabled": true,
+                     "alwaysRun": false,
+                     "continueOnError": false,
+                     "timeoutInMinutes": 0,
+                     "definitionType": "task",
+                     "overrideInputs": {},
+                     "condition": "succeeded()",
+                     "inputs": {
+                        "ConnectedServiceName": "bf254cbf-d9c8-416f-b60b-04dcd7d85f96",
+                        "Action": "Restart Azure App Service",
+                        "WebAppName": "demowebapp",
+                        "SpecifySlot": "false",
+                        "ResourceGroupName": "",
+                        "SourceSlot": "",
+                        "SwapWithProduction": "true",
+                        "TargetSlot": "",
+                        "PreserveVnet": "false",
+                        "Slot": "",
+                        "ExtensionsList": "",
+                        "OutputVariable": ""
+                     }
+                  }
+               ]
+            }
+         ],
+         "environmentOptions": {
+            "emailNotificationType": "OnlyOnFailure",
+            "emailRecipients": "release.environment.owner;release.creator",
+            "skipArtifactsDownload": false,
+            "timeoutInMinutes": 0,
+            "enableAccessToken": false,
+            "publishDeploymentStatus": false
+         },
+         "demands": [],
+         "conditions": [
+            {
+               "name": "ReleaseStarted",
+               "conditionType": 1,
+               "value": ""
+            }
+         ],
+         "executionPolicy": {
+            "concurrencyCount": 0,
+            "queueDepthCount": 0
+         },
+         "schedules": [],
+         "retentionPolicy": {
+            "daysToKeep": 30,
+            "releasesToKeep": 3,
+            "retainBuild": true
+         },
+         "processParameters": {},
+         "properties": {}
+      }
+   ],
+   "artifacts": [
+      {
+         "sourceId": "65f902b2-db63-4844-a8e5-ba28b37850e8:43",
+         "type": "Build",
+         "alias": "Build MyApp Docker Image",
+         "definitionReference": {
+            "defaultVersionBranch": {
+               "id": "",
+               "name": ""
+            },
+            "defaultVersionSpecific": {
+               "id": "",
+               "name": ""
+            },
+            "defaultVersionTags": {
+               "id": "",
+               "name": ""
+            },
+            "defaultVersionType": {
+               "id": "latestType",
+               "name": "Latest"
+            },
+            "definition": {
+               "id": "43",
+               "name": "Build MyApp Docker Image"
+            },
+            "project": {
+               "id": "65f902b2-db63-4844-a8e5-ba28b37850e8",
+               "name": "nodetest"
+            },
+            "artifactSourceDefinitionUrl": {
+               "id": "https://benc-uk.visualstudio.com/_permalink/_build/index?collectionId=99bcfaf8-1201-461a-9c7e-49d5ae0ca316&projectId=65f902b2-db63-4844-a8e5-ba28b37850e8&definitionId=43",
+               "name": ""
+            }
+         },
+         "isPrimary": true
+      }
+   ],
+   "triggers": [],
+   "releaseNameFormat": "Release-$(rev:r)",
+   "url": "https://benc-uk.vsrm.visualstudio.com/65f902b2-db63-4844-a8e5-ba28b37850e8/_apis/Release/definitions/1",
+   "_links": {
+      "self": {
+         "href": "https://benc-uk.vsrm.visualstudio.com/65f902b2-db63-4844-a8e5-ba28b37850e8/_apis/Release/definitions/1"
+      },
+      "web": {
+         "href": "https://benc-uk.visualstudio.com/65f902b2-db63-4844-a8e5-ba28b37850e8/_release?definitionId=1"
+      }
+   },
+   "tags": [],
+   "properties": {}
+}

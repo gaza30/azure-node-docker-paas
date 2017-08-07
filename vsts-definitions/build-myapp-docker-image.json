@@ -1,0 +1,312 @@
+{
+   "options": [
+      {
+         "enabled": true,
+         "definition": {
+            "id": "5d58cc01-7c75-450c-be18-a388ddb129ec"
+         },
+         "inputs": {
+            "branchFilters": "[\"+refs/heads/*\"]",
+            "additionalFields": "{}"
+         }
+      },
+      {
+         "enabled": false,
+         "definition": {
+            "id": "7c555368-ca64-4199-add6-9ebaf0b0137d"
+         },
+         "inputs": {
+            "multipliers": "[]",
+            "parallel": "false",
+            "continueOnError": "true",
+            "additionalFields": "{}"
+         }
+      },
+      {
+         "enabled": false,
+         "definition": {
+            "id": "a9db38f9-9fdc-478c-b0f9-464221e58316"
+         },
+         "inputs": {
+            "workItemType": "959018",
+            "assignToRequestor": "true",
+            "additionalFields": "{}"
+         }
+      },
+      {
+         "enabled": false,
+         "definition": {
+            "id": "57578776-4c22-4526-aeb0-86b6da17ee9c"
+         },
+         "inputs": {}
+      }
+   ],
+   "triggers": [
+      {
+         "branchFilters": [
+            "+refs/heads/master"
+         ],
+         "pathFilters": [],
+         "batchChanges": false,
+         "maxConcurrentBuildsPerBranch": 1,
+         "pollingInterval": 0,
+         "triggerType": 2
+      }
+   ],
+   "variables": {
+      "system.debug": {
+         "value": "false",
+         "allowOverride": true
+      }
+   },
+   "retentionRules": [
+      {
+         "branches": [
+            "+refs/heads/*"
+         ],
+         "artifacts": [],
+         "artifactTypesToDelete": [
+            "FilePath",
+            "SymbolStore"
+         ],
+         "daysToKeep": 10,
+         "minimumToKeep": 1,
+         "deleteBuildRecord": true,
+         "deleteTestResults": true
+      }
+   ],
+   "metrics": [
+      {
+         "name": "CurrentBuildsInQueue",
+         "scope": "refs/heads/master",
+         "intValue": 0
+      },
+      {
+         "name": "CurrentBuildsInProgress",
+         "scope": "refs/heads/master",
+         "intValue": 0
+      },
+      {
+         "name": "CanceledBuilds",
+         "scope": "refs/heads/master",
+         "intValue": 0,
+         "date": "2017-08-07T00:00:00.000Z"
+      },
+      {
+         "name": "FailedBuilds",
+         "scope": "refs/heads/master",
+         "intValue": 0,
+         "date": "2017-08-07T00:00:00.000Z"
+      },
+      {
+         "name": "PartiallySuccessfulBuilds",
+         "scope": "refs/heads/master",
+         "intValue": 0,
+         "date": "2017-08-07T00:00:00.000Z"
+      },
+      {
+         "name": "SuccessfulBuilds",
+         "scope": "refs/heads/master",
+         "intValue": 1,
+         "date": "2017-08-07T00:00:00.000Z"
+      },
+      {
+         "name": "TotalBuilds",
+         "scope": "refs/heads/master",
+         "intValue": 1,
+         "date": "2017-08-07T00:00:00.000Z"
+      }
+   ],
+   "_links": {
+      "self": {
+         "href": "https://benc-uk.visualstudio.com/65f902b2-db63-4844-a8e5-ba28b37850e8/_apis/build/Definitions/43"
+      },
+      "web": {
+         "href": "https://benc-uk.visualstudio.com/_permalink/_build/index?collectionId=99bcfaf8-1201-461a-9c7e-49d5ae0ca316&projectId=65f902b2-db63-4844-a8e5-ba28b37850e8&definitionId=43"
+      },
+      "editor": {
+         "href": "https://benc-uk.visualstudio.com/_permalink/_build/definitionEditor?collectionId=99bcfaf8-1201-461a-9c7e-49d5ae0ca316&projectId=65f902b2-db63-4844-a8e5-ba28b37850e8&definitionId=43"
+      }
+   },
+   "buildNumberFormat": "$(date:yyyyMMdd)$(rev:.r)",
+   "jobAuthorizationScope": 1,
+   "jobTimeoutInMinutes": 60,
+   "jobCancelTimeoutInMinutes": 5,
+   "process": {
+      "phases": [
+         {
+            "steps": [
+               {
+                  "environment": {},
+                  "enabled": true,
+                  "continueOnError": false,
+                  "alwaysRun": false,
+                  "displayName": "Build an image",
+                  "timeoutInMinutes": 0,
+                  "condition": "succeeded()",
+                  "refName": "Docker1",
+                  "task": {
+                     "id": "e28912f1-0114-4464-802a-a3a35437fd16",
+                     "versionSpec": "0.*",
+                     "definitionType": "task"
+                  },
+                  "inputs": {
+                     "containerregistrytype": "Azure Container Registry",
+                     "dockerRegistryEndpoint": "",
+                     "azureSubscriptionEndpoint": "bf254cbf-d9c8-416f-b60b-04dcd7d85f96",
+                     "azureContainerRegistry": "{\"loginServer\":\"demoregistry444.azurecr.io\", \"id\" : \"/subscriptions/52512f28-c6ed-403e-9569-82a9fb9fec91/resourceGroups/temp.myapp/providers/Microsoft.ContainerRegistry/registries/demoregistry444\"}",
+                     "action": "Build an image",
+                     "dockerFile": "**/Dockerfile",
+                     "buildArguments": "",
+                     "defaultContext": "true",
+                     "context": "",
+                     "imageName": "myapp:$(Build.BuildId)",
+                     "qualifyImageName": "true",
+                     "additionalImageTags": "",
+                     "includeSourceTags": "false",
+                     "includeLatestTag": "true",
+                     "imageDigestFile": "",
+                     "containerName": "",
+                     "ports": "",
+                     "volumes": "",
+                     "envVars": "",
+                     "workDir": "",
+                     "entrypoint": "",
+                     "containerCommand": "",
+                     "detached": "true",
+                     "restartPolicy": "no",
+                     "restartMaxRetries": "",
+                     "customCommand": "",
+                     "dockerHostEndpoint": "",
+                     "cwd": "$(System.DefaultWorkingDirectory)"
+                  }
+               },
+               {
+                  "environment": {},
+                  "enabled": true,
+                  "continueOnError": false,
+                  "alwaysRun": false,
+                  "displayName": "Push an image",
+                  "timeoutInMinutes": 0,
+                  "condition": "succeeded()",
+                  "refName": "Docker2",
+                  "task": {
+                     "id": "e28912f1-0114-4464-802a-a3a35437fd16",
+                     "versionSpec": "0.*",
+                     "definitionType": "task"
+                  },
+                  "inputs": {
+                     "containerregistrytype": "Azure Container Registry",
+                     "dockerRegistryEndpoint": "",
+                     "azureSubscriptionEndpoint": "bf254cbf-d9c8-416f-b60b-04dcd7d85f96",
+                     "azureContainerRegistry": "{\"loginServer\":\"demoregistry444.azurecr.io\", \"id\" : \"/subscriptions/52512f28-c6ed-403e-9569-82a9fb9fec91/resourceGroups/temp.myapp/providers/Microsoft.ContainerRegistry/registries/demoregistry444\"}",
+                     "action": "Push an image",
+                     "dockerFile": "**/Dockerfile",
+                     "buildArguments": "",
+                     "defaultContext": "true",
+                     "context": "",
+                     "imageName": "myapp:$(Build.BuildId)",
+                     "qualifyImageName": "true",
+                     "additionalImageTags": "",
+                     "includeSourceTags": "false",
+                     "includeLatestTag": "true",
+                     "imageDigestFile": "",
+                     "containerName": "",
+                     "ports": "",
+                     "volumes": "",
+                     "envVars": "",
+                     "workDir": "",
+                     "entrypoint": "",
+                     "containerCommand": "",
+                     "detached": "true",
+                     "restartPolicy": "no",
+                     "restartMaxRetries": "",
+                     "customCommand": "",
+                     "dockerHostEndpoint": "",
+                     "cwd": "$(System.DefaultWorkingDirectory)"
+                  }
+               },
+               {
+                  "environment": {},
+                  "enabled": true,
+                  "continueOnError": false,
+                  "alwaysRun": false,
+                  "displayName": "Publish Artifact: stuff",
+                  "timeoutInMinutes": 0,
+                  "condition": "succeeded()",
+                  "refName": "PublishBuildArtifacts3",
+                  "task": {
+                     "id": "2ff763a7-ce83-4e1f-bc89-0ae63477cebe",
+                     "versionSpec": "1.*",
+                     "definitionType": "task"
+                  },
+                  "inputs": {
+                     "PathtoPublish": ".",
+                     "ArtifactName": "stuff",
+                     "ArtifactType": "Container",
+                     "TargetPath": "\\\\my\\share\\$(Build.DefinitionName)\\$(Build.BuildNumber)",
+                     "Parallel": "false",
+                     "ParallelCount": "8"
+                  }
+               }
+            ],
+            "name": null,
+            "jobAuthorizationScope": 0
+         }
+      ],
+      "type": 1
+   },
+   "repository": {
+      "properties": {
+         "cleanOptions": "0",
+         "labelSources": "0",
+         "labelSourcesFormat": "$(build.buildNumber)",
+         "reportBuildStatus": "true",
+         "gitLfsSupport": "false",
+         "skipSyncSource": "false",
+         "checkoutNestedSubmodules": "false",
+         "fetchDepth": "0"
+      },
+      "id": "460a603f-853b-47b2-95e6-aaaa8dd0e2f0",
+      "type": "TfsGit",
+      "name": "nodetest",
+      "url": "https://benc-uk.visualstudio.com/_git/nodetest",
+      "defaultBranch": "refs/heads/master",
+      "clean": "false",
+      "checkoutSubmodules": false
+   },
+   "processParameters": {},
+   "quality": 1,
+   "authoredBy": {
+      "id": "81613f75-f6e3-49cb-abdf-ff2ba28a0d03",
+      "displayName": "Ben Coleman",
+      "uniqueName": "becolem@microsoft.com",
+      "url": "https://app.vssps.visualstudio.com/Ac13c7b99-2463-4cd0-84a0-5260108a913e/_apis/Identities/81613f75-f6e3-49cb-abdf-ff2ba28a0d03",
+      "imageUrl": "https://benc-uk.visualstudio.com/_api/_common/identityImage?id=81613f75-f6e3-49cb-abdf-ff2ba28a0d03"
+   },
+   "queue": {
+      "id": 135,
+      "name": "Hosted Linux Preview",
+      "pool": {
+         "id": 4,
+         "name": "Hosted Linux Preview",
+         "isHosted": true
+      }
+   },
+   "id": 43,
+   "name": "Build MyApp Docker Image",
+   "url": "https://benc-uk.visualstudio.com/65f902b2-db63-4844-a8e5-ba28b37850e8/_apis/build/Definitions/43",
+   "uri": "vstfs:///Build/Definition/43",
+   "path": "\\",
+   "type": 2,
+   "revision": 2,
+   "createdDate": "2017-08-07T12:30:24.647Z",
+   "project": {
+      "id": "65f902b2-db63-4844-a8e5-ba28b37850e8",
+      "name": "nodetest",
+      "url": "https://benc-uk.visualstudio.com/_apis/projects/65f902b2-db63-4844-a8e5-ba28b37850e8",
+      "state": "wellFormed",
+      "revision": 209,
+      "visibility": 0
+   }
+}
